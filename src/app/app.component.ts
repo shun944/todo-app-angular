@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ApiService } from './api.service';
+import { ApiService } from './service/api.service';
+import { GetUserInfoService } from './service/get-user-info.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,16 @@ import { ApiService } from './api.service';
 })
 export class AppComponent implements OnInit{
   todos: any;
-  constructor(private apiservice: ApiService) {}
+  constructor(
+    private apiservice: ApiService,
+    private getUserInfoService: GetUserInfoService,
+  ) {}
   //apiservice = inject(ApiService);
+  user_id = this.getUserInfoService.getUserId();
 
   ngOnInit(): void {
-    this.apiservice.fetchTodos().subscribe((data) => {
+    const params = { user_id: this.user_id }
+    this.apiservice.getTodos(params).subscribe((data) => {
       this.todos = data;
       console.log(this.todos);
       console.log(this.todos[1].title);

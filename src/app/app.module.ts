@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
-import { ApiService } from './api.service';
+import { ApiService } from './service/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoComponent } from './component/todo/todo.component';
 import { TodoNewComponent } from './component/todo-new/todo-new.component';
@@ -14,6 +14,7 @@ import { TodoFormDialogComponent } from './component/todo-form-dialog/todo-form-
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
+import { GetUserInfoService } from './service/get-user-info.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    GetUserInfoService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,7 +10,12 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  fetchTodos(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/todos`);
+  getTodos(params?: any): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/todos`, { params });
   }
+
+  createTodo(todo: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/todos`, todo);
+  }
+
 }
