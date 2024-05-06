@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 export class ApiService {
   private baseUrl = "http://127.0.0.1:3000"
 
-  todoCreated = new Subject<void>();
+  todoModified = new Subject<void>();
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,15 @@ export class ApiService {
   createTodo(todo: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/todos`, todo).pipe(
       tap(() => {
-        this.todoCreated.next();
+        this.todoModified.next();
+      })
+    );
+  }
+
+  deleteTodoById(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/todos/${id}`).pipe(
+      tap(() => {
+        this.todoModified.next();
       })
     );
   }

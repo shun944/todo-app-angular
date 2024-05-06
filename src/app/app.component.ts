@@ -23,10 +23,8 @@ export class AppComponent implements OnInit{
     const params = { user_id: this.user_id }
     this.apiservice.getTodos(params).subscribe((data) => {
       this.todos = data;
-      console.log(this.todos);
-      console.log(this.todos[1].title);
     });
-    this.subscription = this.apiservice.todoCreated.subscribe(() => {
+    this.subscription = this.apiservice.todoModified.subscribe(() => {
       this.apiservice.getTodos(params).subscribe((data) => {
         this.todos = data;
       });
