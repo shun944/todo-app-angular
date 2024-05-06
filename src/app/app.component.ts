@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from './service/api.service';
 import { GetUserInfoService } from './service/get-user-info.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,14 @@ import { GetUserInfoService } from './service/get-user-info.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  todos: any;
   constructor(
     private apiservice: ApiService,
     private getUserInfoService: GetUserInfoService,
   ) {}
+  private subscription!: Subscription;
+  todos: any;
   //apiservice = inject(ApiService);
+
   user_id = this.getUserInfoService.getUserId();
 
   ngOnInit(): void {
@@ -23,6 +26,17 @@ export class AppComponent implements OnInit{
       console.log(this.todos);
       console.log(this.todos[1].title);
     });
+    this.subscription = this.apiservice.todoCreated.subscribe(() => {
+      this.apiservice.getTodos(params).subscribe((data) => {
+        this.todos = data;
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   title = 'todo-app-new';
