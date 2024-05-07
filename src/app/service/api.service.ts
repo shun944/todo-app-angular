@@ -25,6 +25,14 @@ export class ApiService {
     );
   }
 
+  updateTodoById(id: number, todo: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/todos/${id}`, todo).pipe(
+      tap(() => {
+        this.todoModified.next();
+      })
+    );
+  }
+
   deleteTodoById(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/todos/${id}`).pipe(
       tap(() => {

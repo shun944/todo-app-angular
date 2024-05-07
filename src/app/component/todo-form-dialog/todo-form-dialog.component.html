@@ -1,4 +1,5 @@
 {{this.user_id}}
+
 <div class="form-box">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-field">
@@ -13,7 +14,8 @@
       <label for="title">Due_date:</label>
       <input type="date" formControlName="due_date">
     </div>
-    <button type="submit">Submit</button>
+    <button *ngIf="!data.todo" type="submit">Create</button>
+    <button *ngIf="data.todo" type="submit">Update</button>
   </form>
 </div>
 <div (click)="dialogRef.close()">

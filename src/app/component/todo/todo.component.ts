@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TodoFormDialogComponent } from '../todo-form-dialog/todo-form-dialog.component';
 
 @Component({
   selector: 'app-todo',
@@ -7,7 +9,10 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent {
-  constructor(private apiservice: ApiService) {}
+  constructor(
+    private apiservice: ApiService,
+    public dialog: MatDialog,
+  ) {}
   @Input() todo: any;
 
   onDeleteButtonClick(): void {
@@ -16,4 +21,12 @@ export class TodoComponent {
     });
   }
 
+  onUpdateButtonClick(): void {
+    const dialogRef = this.dialog.open(TodoFormDialogComponent, {
+      disableClose: true,
+      width: '250px',
+      height: '250px',
+      data: {title: 'Edit Todo', todo: this.todo}
+  });
+  }
 }

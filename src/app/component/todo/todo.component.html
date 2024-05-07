@@ -3,7 +3,14 @@
   <div class="description">{{todo.description}}</div>
   <div>{{todo.status}}</div>
   <div>{{todo.due_date}}</div>
-  <button (click)="onDeleteButtonClick()">
-    delete todo
-  </button>
+  <div>
+    <button (click)="onDeleteButtonClick()">
+      delete todo
+    </button>
+  </div>
+  <div>
+    <button (click)="onUpdateButtonClick()">
+      edit todo
+    </button>
+  </div>
 </div>
