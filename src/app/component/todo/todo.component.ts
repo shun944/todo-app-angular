@@ -18,6 +18,8 @@ export class TodoComponent {
   onDeleteButtonClick(): void {
     this.apiservice.deleteTodoById(this.todo.id).subscribe(response => {
       console.log(response);
+    }, error => {
+      console.error(error);
     });
   }
 
@@ -28,5 +30,15 @@ export class TodoComponent {
       height: '250px',
       data: {title: 'Edit Todo', todo: this.todo}
   });
+  }
+
+  onCheckBoxChange(): void {
+    var completed = !this.todo.completed;
+    console.log(completed);
+    this.apiservice.updateTodoById(this.todo.id, {todo: {completed: completed}}).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error(error);
+    });
   }
 }

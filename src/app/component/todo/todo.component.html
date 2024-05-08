@@ -4,13 +4,16 @@
   <div>{{todo.status}}</div>
   <div>{{todo.due_date}}</div>
   <div>
+    <button (click)="onUpdateButtonClick()">
+      edit todo
+    </button>
+  </div>
+  <div>
     <button (click)="onDeleteButtonClick()">
       delete todo
     </button>
   </div>
   <div>
-    <button (click)="onUpdateButtonClick()">
-      edit todo
-    </button>
+    <input type="checkbox" [checked]="todo.completed" (change)="onCheckBoxChange()"> 完了
   </div>
 </div>
